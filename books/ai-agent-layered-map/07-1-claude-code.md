@@ -1,5 +1,5 @@
 ---
-title: "７章：製品解説 (1) Claude Code：AIコーディングエージェント"
+title: "7章：製品解説 (1) Claude Code：AIコーディングエージェント"
 ---
 
 # Claude Code：AIコーディングエージェント

@@ -1,5 +1,5 @@
 ---
-title: "７章：製品解説 (4) 開発フレームワーク"
+title: "7章：製品解説 (4) 開発フレームワーク"
 ---
 
 # 開発フレームワーク詳細解説：LangChain / Strands Agents / Bedrock AgentCore

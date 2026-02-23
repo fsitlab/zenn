@@ -1,5 +1,5 @@
 ---
-title: "７章：製品解説 (5) ChatGPT Enterprise / GPTs / Projects"
+title: "7章：製品解説 (5) ChatGPT Enterprise / GPTs / Projects"
 ---
 
 # ChatGPT Enterprise / GPTs / Projects
