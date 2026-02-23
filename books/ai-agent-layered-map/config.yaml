@@ -2,6 +2,7 @@ title: "5層モデルで理解するAIエージェントの概念マップ"
 summary: "AIエージェントの概念を5層モデル（LLM層・通信層・LLMオーケストレーション層・外部ツール層・UI運用層）で体系的に整理したガイド。各層の役割・代表製品・相性問題・セキュリティまで網羅する。"
 topics: ["ai", "llm", "aiagent", "claude"]
 published: true
+allow_override: true 
 price: 0
 chapters:
   - 00-intro
