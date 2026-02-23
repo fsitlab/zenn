@@ -5,7 +5,7 @@ title: "ChatGPT Enterprise / GPTs / Projects：5層モデルで解説"
 # ChatGPT Enterprise / GPTs / Projects：5層モデルで解説
 
 > **5層モデルでの位置**: 第5層（WebUI）をメイン、GPTs/Projectsで第2層を拡張
-> **一言**: OpenAIのエンドユーザー向けプラットフォーム。GPTsやProjectsで「第2層」のカスタマイズを提供。
+> **概要**: OpenAIのエンドユーザー向けプラットフォーム。GPTsやProjectsで「第2層」のカスタマイズを提供。
 
 ---
 

@@ -12,7 +12,7 @@ title: "第4層「外部ツール層」詳細解説 (b) エージェント連携
 
 ## 1. エージェント連携の概要
 
-**一言**: 複数のAIエージェントが協調してタスクを遂行する仕組み。単一エージェントの限界を超え、専門化・並列化・異種連携を実現する。
+**概要**: 複数のAIエージェントが協調してタスクを遂行する仕組み。単一エージェントの限界を超え、専門化・並列化・異種連携を実現する。
 
 ### 1-1. エージェント連携の3つの方式
 
@@ -111,7 +111,7 @@ flowchart LR
 
 ### 3-1. サブエージェントとは
 
-**一言**: 親エージェントが特定タスクを委譲するために起動する子エージェント。親は子の完了を待つ（同期的）。**複数の子エージェントを順次または並列で起動可能**。
+**概要**: 親エージェントが特定タスクを委譲するために起動する子エージェント。親は子の完了を待つ（同期的）。**複数の子エージェントを順次または並列で起動可能**。
 
 **Claude Codeでの実装**: `Task`ツールを使用して起動
 
@@ -217,7 +217,7 @@ Always check for:
 
 ### 4-1. Agent Teamsとは
 
-**一言**: 複数のエージェント（テイメイト）がタスクボードを共有し、並列で非同期に協働する仕組み。人間もチームメンバーとして参加可能。
+**概要**: 複数のエージェント（テイメイト）がタスクボードを共有し、並列で非同期に協働する仕組み。人間もチームメンバーとして参加可能。
 
 **Claude Codeでの実装**: `/teams`コマンドで有効化
 
@@ -359,7 +359,7 @@ flowchart TB
 
 ### 5-1. A2Aとは
 
-**一言**: Google発の標準化プロトコル。異なるフレームワーク間でエージェントが通信するためのHTTP/JSON-RPC 2.0ベースの仕様。
+**概要**: Google発の標準化プロトコル。異なるフレームワーク間でエージェントが通信するためのHTTP/JSON-RPC 2.0ベースの仕様。
 
 ### 5-2. A2Aのフロー
 
@@ -497,97 +497,6 @@ Amazon Bedrock AgentCoreの主要コンポーネントと、5層モデルにお�
 ---
 
 ## 6. 5層モデルでの通信方式
-
-### 6-1. 各連携方式の通信経路図
-
-```mermaid
-flowchart TB
-    subgraph Layer5["第5層 UI・運用層"]
-        User["ユーザー"]
-    end
-
-    subgraph Layer4["第4層 外部ツール層"]
-        SubAgent["サブエージェント"]
-        Teammate["テイメイト"]
-        A2AAgent["A2Aエージェント"]
-        TaskBoard["タスクボード"]
-    end
-
-    subgraph Layer3["第3層 LLMオーケストレーション層"]
-        App["アプリケーション<br/>（Claude Code等）"]
-        MCP["MCPクライアント"]
-    end
-
-    subgraph Layer2["第2層 通信層"]
-        Layer2B["第2層OUT: ツール実行要求"]
-        Layer2A["第2層IN: 応答解析"]
-    end
-
-    subgraph Layer1["第1層 LLM層"]
-        LLM["LLM<br/>（Claude等）"]
-    end
-
-    %% ユーザーからの入力
-    User -->|"入力"| App
-
-    %% サブエージェント経路
-    LLM -->|"tool_use: Task"| Layer2B
-    Layer2B -->|"サブエージェント起動"| SubAgent
-    SubAgent -->|"tool_result"| Layer2A
-    Layer2A -->|"結果"| LLM
-
-    %% Agent Teams経路
-    App -->|"タスク登録"| TaskBoard
-    TaskBoard <-->|"タスク取得/報告"| Teammate
-
-    %% A2A経路
-    MCP -->|"JSON-RPC"| A2AAgent
-    A2AAgent -->|"JSON-RPC応答"| MCP
-
-    style Layer5 fill:#e8f5e9
-    style Layer4 fill:#fff3e0
-    style Layer3 fill:#e3f2fd
-    style Layer2 fill:#fce4ec
-    style Layer1 fill:#f3e5f5
-```
-
-### 6-2. 通信経路の詳細比較
-
-```mermaid
-flowchart LR
-    subgraph SubAgentPath["サブエージェント経路"]
-        direction TB
-        L1_SA["第1層: LLM"] --> L2B_SA["第2層OUT: tool_use: Task"]
-        L2B_SA --> L3_SA["第3層: LLMオーケストレーション層"]
-        L3_SA --> L4_SA["第4層: サブエージェント"]
-        L4_SA --> L3_SA2["第3層: LLMオーケストレーション層"]
-        L3_SA2 --> L2A_SA["第2層IN: tool_result"]
-        L2A_SA --> L1_SA2["第1層: LLM"]
-    end
-
-    subgraph TeamsPath["Agent Teams経路"]
-        direction TB
-        L5_AT["第5層: ユーザー"] --> L3_AT["第3層: リード"]
-        L3_AT --> L4_AT["第4層: タスクボード"]
-        L4_AT <--> L4_AT2["第4層: テイメイト群"]
-    end
-
-    subgraph A2APath["A2A経路"]
-        direction TB
-        L1_A2A["第1層: LLM"] --> L2B_A2A["第2層OUT: tool_use"]
-        L2B_A2A --> L3_A2A["第3層: MCPクライアント"]
-        L3_A2A --> L4_A2A["第4層: A2Aエージェント<br/>（HTTP/JSON-RPC）"]
-        L4_A2A --> L3_A2A2["第3層: MCPクライアント"]
-        L3_A2A2 --> L2A_A2A["第2層IN: tool_result"]
-        L2A_A2A --> L1_A2A2["第1層: LLM"]
-    end
-
-    style SubAgentPath fill:#e1f5fe
-    style TeamsPath fill:#f3e5f5
-    style A2APath fill:#e8f5e9
-```
-
-### 6-3. 層別の役割と通信
 
 | 層 | サブエージェント | Agent Teams | A2A |
 |----|------------------|-------------|-----|

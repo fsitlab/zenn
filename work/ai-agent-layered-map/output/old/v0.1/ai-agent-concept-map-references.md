@@ -43,7 +43,7 @@
 
 ### ① LLM入出力層
 
-**一言**: LLMへのリクエストJSONに含まれる推論パラメータ。モデルの「確率的振る舞い」をここで制御する。
+**概要**: LLMへのリクエストJSONに含まれる推論パラメータ。モデルの「確率的振る舞い」をここで制御する。
 
 | パラメータ | 概要 |
 |--|--|
@@ -61,7 +61,7 @@
 
 ### ② ホスト制御層
 
-**一言**: LLMを呼び出すプログラム側。フレームワーク・エージェントランタイム・ライブラリがここに属する。
+**概要**: LLMを呼び出すプログラム側。フレームワーク・エージェントランタイム・ライブラリがここに属する。
 
 | カテゴリ | 代表例 |
 |--|--|
@@ -78,7 +78,7 @@
 
 ### ③ プロンプト層
 
-**一言**: LLMへの入力テキストを構成・操作する層。コードではなく「言葉」で動作を制御する。
+**概要**: LLMへの入力テキストを構成・操作する層。コードではなく「言葉」で動作を制御する。
 
 | 技術 | 概要 |
 |--|--|
@@ -97,7 +97,7 @@
 
 > **対象層**: ① LLM入出力層
 
-**一言**: LLMはステートレスなHTTPサービス。`messages[]`配列を毎回全部送るだけ。ベンダー間でフォーマットが微妙に異なることが「相性問題①」の根本原因。
+**概要**: LLMはステートレスなHTTPサービス。`messages[]`配列を毎回全部送るだけ。ベンダー間でフォーマットが微妙に異なることが「相性問題①」の根本原因。
 
 ---
 
@@ -182,7 +182,7 @@ POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:ge
 
 ### 1-3. マルチモーダルAPIの形式
 
-**一言**: テキスト以外の入力（画像・音声・動画）は`content[]`または`parts[]`内にブロックとして埋め込む。
+**概要**: テキスト以外の入力（画像・音声・動画）は`content[]`または`parts[]`内にブロックとして埋め込む。
 
 ```json
 // Anthropic: content[]内にimageブロック
@@ -214,7 +214,7 @@ POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:ge
 
 ### 1-4. ファイル転送の方法
 
-**一言**: LLMへのファイル送信は3方式。Base64は小さいファイル向き、URL参照は大きいファイル向き、Files APIはセッション跨ぎ用。
+**概要**: LLMへのファイル送信は3方式。Base64は小さいファイル向き、URL参照は大きいファイル向き、Files APIはセッション跨ぎ用。
 
 | 方式 | 概要 | 対応 |
 |--|--|--|
@@ -230,7 +230,7 @@ POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:ge
 
 ### 1-5. ストリーミングの形式
 
-**一言**: LLMのレスポンスを生成と同時に受け取る仕組み。UXと遅延削減に直結する。プロトコルは3種。
+**概要**: LLMのレスポンスを生成と同時に受け取る仕組み。UXと遅延削減に直結する。プロトコルは3種。
 
 | プロトコル | 概要 | 用途 |
 |--|--|--|
@@ -256,7 +256,7 @@ data: [DONE]   ← OpenAI形式の終端
 
 ### 1-6. OSSモデルとHuggingFace エコシステム
 
-**一言**: HuggingFace Hubがモデルの中央リポジトリ。サービング層はOpenAI互換APIを公開することが多く、内部でモデル固有フォーマットに変換している。
+**概要**: HuggingFace Hubがモデルの中央リポジトリ。サービング層はOpenAI互換APIを公開することが多く、内部でモデル固有フォーマットに変換している。
 
 #### HuggingFace の役割
 - **HuggingFace Hub**: モデル・データセット・Spaceの公開プラットフォーム。OSSモデルのGitHub。
@@ -316,7 +316,7 @@ HuggingFace Hub（モデル置き場）
 
 > **対象層**: ① LLM入出力層 + ② ホスト制御層の境界
 
-**一言**: LLMは`tool_use`ブロック（JSON）を出力するだけ。実行は常にホスト側。この「LLMとホストの往復プロトコル」がProvider間・ライブラリ間で差異を生む。
+**概要**: LLMは`tool_use`ブロック（JSON）を出力するだけ。実行は常にホスト側。この「LLMとホストの往復プロトコル」がProvider間・ライブラリ間で差異を生む。
 
 ---
 
@@ -372,7 +372,7 @@ HuggingFace Hub（モデル置き場）
 
 #### 画像生成モデルのツール呼び出し
 
-**一言**: DALL-E・Imagen等はLLMのtool_use呼び出し対象として使われる。モデル自体がtool_useを返すのではなく、「画像生成APIを呼ぶツール」として②層で実装する。
+**概要**: DALL-E・Imagen等はLLMのtool_use呼び出し対象として使われる。モデル自体がtool_useを返すのではなく、「画像生成APIを呼ぶツール」として②層で実装する。
 
 - 📘 [OpenAI Images API](https://platform.openai.com/docs/api-reference/images) — `tool_use`からDALL-Eを呼ぶパターン
 - 📘 [Anthropic Computer Use](https://docs.anthropic.com/en/docs/build-with-claude/computer-use) — スクリーンショット（画像）をtool_resultとして返すパターン
@@ -381,25 +381,25 @@ HuggingFace Hub（モデル置き場）
 
 ### 2-2. LLMフレームワークによる抽象化
 
-**一言**: LangChain・Strands等のライブラリは各社APIのtool_use形式差を吸収し、統一インターフェースを提供する。抽象化層が多いほどデバッグが難しくなる。
+**概要**: LangChain・Strands等のライブラリは各社APIのtool_use形式差を吸収し、統一インターフェースを提供する。抽象化層が多いほどデバッグが難しくなる。
 
 #### LangChain
 
-**一言**: `@tool`デコレータで定義→内部でAnthropicなら`input_schema`形式、OpenAIなら`parameters`形式に自動変換。`ToolMessage`で結果を統一管理。
+**概要**: `@tool`デコレータで定義→内部でAnthropicなら`input_schema`形式、OpenAIなら`parameters`形式に自動変換。`ToolMessage`で結果を統一管理。
 
 - 📘 [LangChain Tool Use ドキュメント](https://python.langchain.com/docs/how_to/tool_calling/)
 - 📘 [LangChain Anthropic統合](https://python.langchain.com/docs/integrations/chat/anthropic/)
 
 #### AWS Strands Agents
 
-**一言**: `@tool`デコレータ＋BedrockのConverseAPI経由。Anthropic/Amazon/Cohere等のモデルを統一的に扱える。
+**概要**: `@tool`デコレータ＋BedrockのConverseAPI経由。Anthropic/Amazon/Cohere等のモデルを統一的に扱える。
 
 - 📘 [Strands Agents Tool ドキュメント](https://strandsagents.com/latest/user-guide/concepts/tools/python-tools/)
 - 📘 [Amazon Bedrock Converse API](https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html) — 各社モデルのtool_use形式を吸収
 
 #### Dify
 
-**一言**: ノーコードでTool Useを設定。内部でOpenAI/Anthropic/Geminiそれぞれのtool定義形式に変換。GUIで「ツールノード」として視覚化。
+**概要**: ノーコードでTool Useを設定。内部でOpenAI/Anthropic/Geminiそれぞれのtool定義形式に変換。GUIで「ツールノード」として視覚化。
 
 - 📘 [Dify Tool ドキュメント](https://docs.dify.ai/guides/tools)
 
@@ -425,7 +425,7 @@ HuggingFace Hub（モデル置き場）
 
 > **対象層**: ① / ② 境界（サーバーは②、クライアントも②、LLMが受け取るのは①）
 
-**一言**: `tools[]`の定義をAPIリクエストに毎回書く代わりに、MCPサーバーが自動公開する仕組み。**LLMが受け取るJSONは変わらない**——MCPはあくまで「どうやってtools[]を用意するか」の話。
+**概要**: `tools[]`の定義をAPIリクエストに毎回書く代わりに、MCPサーバーが自動公開する仕組み。**LLMが受け取るJSONは変わらない**——MCPはあくまで「どうやってtools[]を用意するか」の話。
 
 ---
 
@@ -516,7 +516,7 @@ HuggingFace Hub（モデル置き場）
 
 > **対象層**: ③ プロンプト層（従来RAG）/ ① + ② （Tool型RAG）
 
-**一言（対比）**:
+**概要（対比）**:
 - **従来RAG（③層）**: ホストが機械的にベクトル検索→結果をpromptに埋め込む。LLMは検索を知らない。クエリはユーザー入力のコピー。1回しか検索しない。
 - **Tool型RAG（①②層）**: LLMが自分でクエリを生成し、検索ツールを`tool_use`で呼ぶ。結果を見て再検索できる。複数クエリ・反復可能。「A社とB社を比較して」のような複合クエリに強い。
 
@@ -560,7 +560,7 @@ HuggingFace Hub（モデル置き場）
 
 > **対象層**: ③ プロンプト層
 
-**一言**: セッション開始時にsystem promptへ自動注入されるMarkdown。APIレベルでは「長いsystem prompt」でしかない。
+**概要**: セッション開始時にsystem promptへ自動注入されるMarkdown。APIレベルでは「長いsystem prompt」でしかない。
 
 ### 公式リファレンス
 - 📘 [Claude Code Memory管理 公式ドキュメント](https://code.claude.com/docs/en/memory) — ディレクトリ階層・優先度・`@import`構文
@@ -584,7 +584,7 @@ HuggingFace Hub（モデル置き場）
 
 > **対象層**: ③ プロンプト層（`context: fork`でSubagentに移行可能）
 
-**一言**: 使用時だけロードされるプロンプトのモジュール。起動時は`name`と`description`だけ（~100トークン）読む。タスクが来たとき初めてSKILL.md全体をロード（Progressive Disclosure）。
+**概要**: 使用時だけロードされるプロンプトのモジュール。起動時は`name`と`description`だけ（~100トークン）読む。タスクが来たとき初めてSKILL.md全体をロード（Progressive Disclosure）。
 
 ### 公式リファレンス
 - 📘 [Claude Code Skills ドキュメント](https://code.claude.com/docs/en/skills)
@@ -608,7 +608,7 @@ OpenAI Codex: .agents/skills/<skill-name>/SKILL.md
 
 > **対象層**: ② ホスト制御層（最重要）
 
-**一言**: LLMへの指示（③層）は確率的で「必ず実行」できない。Hooksはシェルスクリプトを確実に実行する確率ゼロの制御。
+**概要**: LLMへの指示（③層）は確率的で「必ず実行」できない。Hooksはシェルスクリプトを確実に実行する確率ゼロの制御。
 
 ### 公式リファレンス
 - 📘 [Claude Code Hooks 公式ドキュメント](https://code.claude.com/docs/en/hooks) — 14種のイベント一覧、exit code 2でのブロック方法
@@ -640,7 +640,7 @@ SubagentStart / SubagentStop
 
 > **対象層**: ① ② ③ 全層の集大成
 
-**一言**: SubagentはTaskツールの`tool_use`から始まる。ClaudeCodeがAPIリクエストを新規立ち上げ、完了したら`tool_result`で返る。
+**概要**: SubagentはTaskツールの`tool_use`から始まる。ClaudeCodeがAPIリクエストを新規立ち上げ、完了したら`tool_result`で返る。
 
 ### 公式リファレンス
 - 📘 [Claude Code Sub-agents 公式ドキュメント](https://code.claude.com/docs/en/sub-agents)
@@ -681,7 +681,7 @@ You are a code reviewer...
 
 > **対象層**: ① プロトコル（エージェント間）
 
-**一言**: ClaudeCode Teamsはファイル共有（ホワイトボードパターン）。AgentCoreはA2A JSON-RPC。通信方式の違いが「相性問題」になる。
+**概要**: ClaudeCode Teamsはファイル共有（ホワイトボードパターン）。AgentCoreはA2A JSON-RPC。通信方式の違いが「相性問題」になる。
 
 ### 公式リファレンス
 - 📘 [Amazon Bedrock AgentCore A2A対応](https://aws.amazon.com/bedrock/agentcore/) — Agent Card / JSON-RPC 2.0 / SSE
@@ -708,7 +708,7 @@ You are a code reviewer...
 
 > **対象層**: ③を中心に全層を梱包する
 
-**一言**: PluginはSkill/Agent/Hook/MCPサーバーをまとめた配布パッケージ。
+**概要**: PluginはSkill/Agent/Hook/MCPサーバーをまとめた配布パッケージ。
 
 ### ディレクトリ構造
 ```
@@ -731,7 +731,7 @@ my-plugin/
 
 > **対象層**: ② ホスト制御層
 
-**一言**: 「何を誰が信頼するか」の哲学の違い。LLMを信頼→人間レビュー（ClaudeCode）/ 人間承認を頻繁に挟む（Codex）/ Policyが全て判定（AgentCore）。
+**概要**: 「何を誰が信頼するか」の哲学の違い。LLMを信頼→人間レビュー（ClaudeCode）/ 人間承認を頻繁に挟む（Codex）/ Policyが全て判定（AgentCore）。
 
 ### 公式リファレンス
 - 📘 [Claude Code Settings - permissions](https://code.claude.com/docs/en/settings) — `permissionMode` / `allowedTools` / `disallowedTools`

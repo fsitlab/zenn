@@ -8,7 +8,7 @@
 
 ## 第8章補足　A2A・SubAgents・Agent Teamsの層の違い
 
-**一言**: 3つは「エージェントが別のエージェントを呼ぶ」という点では同じ。違いは通信路がどの層にあるか、そして呼び出し先を直接知っているかどうか。
+**概要**: 3つは「エージェントが別のエージェントを呼ぶ」という点では同じ。違いは通信路がどの層にあるか、そして呼び出し先を直接知っているかどうか。
 
 ---
 
@@ -87,7 +87,7 @@ SSEモード:  A → POST → B → event: 進捗 → event: 完了（継続受�
 
 ## 第9章改訂　Claude Code Agent Teams：新プロトコルではなく②層ツールの工夫
 
-**一言**: Agent TeamsはA2Aのような新通信プロトコルではない。**②層のツール群（TaskCreate/SendMessage等）を④層のClaude Codeが利用する設計**であり、既存の4層構造の中に完全に収まる。
+**概要**: Agent TeamsはA2Aのような新通信プロトコルではない。**②層のツール群（TaskCreate/SendMessage等）を④層のClaude Codeが利用する設計**であり、既存の4層構造の中に完全に収まる。
 
 > 📘 [Claude Code Agent Teams公式ドキュメント](https://code.claude.com/docs/en/agent-teams)
 > ※experimental機能。`settings.json`に`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS: "1"`で有効化。
@@ -194,7 +194,7 @@ Agent Teams
 
 ## 第9章追加　人間の介入：③層Skillと外部Markdownの連携
 
-**一言**: ②層の内部タスクボードが「何をやるか」を管理する一方、③層のSkill経由で参照される外部Markdownファイルが「なぜやるか・どう判断するか」を補完する。この二層構造が、Agent Teamsへの自然な人間介入を可能にする。
+**概要**: ②層の内部タスクボードが「何をやるか」を管理する一方、③層のSkill経由で参照される外部Markdownファイルが「なぜやるか・どう判断するか」を補完する。この二層構造が、Agent Teamsへの自然な人間介入を可能にする。
 
 ---
 
