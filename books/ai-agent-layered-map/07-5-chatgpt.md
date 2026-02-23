@@ -1,8 +1,8 @@
 ---
-title: "ChatGPT Enterprise / GPTs / Projects：5層モデルで解説"
+title: "７章：製品解説 (5) ChatGPT Enterprise / GPTs / Projects"
 ---
 
-# ChatGPT Enterprise / GPTs / Projects：5層モデルで解説
+# ChatGPT Enterprise / GPTs / Projects
 
 > **5層モデルでの位置**: 第5層（WebUI）をメイン、GPTs/Projectsで第2層を拡張
 > **概要**: OpenAIのエンドユーザー向けプラットフォーム。GPTsやProjectsで「第2層」のカスタマイズを提供。
@@ -367,8 +367,3 @@ flowchart LR
 
 - [Building GPTs Best Practices](https://help.openai.com/en/articles/8554397-creating-a-gpt)
 - [ChatGPT Team](https://openai.com/chatgpt/team)
-
----
-
-*作成日: 2026-02-22*
-*対象: 5層モデル - ChatGPT Enterprise / GPTs / Projects*

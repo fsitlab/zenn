@@ -1,5 +1,5 @@
 ---
-title: "第5層：UI・運用層"
+title: "5章：第5層「UI・運用層」"
 ---
 
 # 第5層：UI・運用層
@@ -236,8 +236,3 @@ Q3. 権限制御でLLM操作に波及する場合は？
 - [Dify公式ドキュメント](https://docs.dify.ai/)
 - [Anthropic API](https://docs.anthropic.com/)
 - [OpenAI API](https://platform.openai.com/docs/)
-
----
-
-*作成日: 2026-02-22*
-*対象: 第5層（UI・運用層）*

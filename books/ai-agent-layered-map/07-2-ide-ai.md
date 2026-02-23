@@ -1,8 +1,8 @@
 ---
-title: "IDE統合型AIアシスタント：5層モデルで理解する"
+title: "７章：製品解説 (2) IDE統合型AIアシスタント"
 ---
 
-# IDE統合型AIアシスタント：5層モデルで理解する
+# IDE統合型AIアシスタント
 
 > **5層モデルでの位置**: 第5層（UI・運用層）+ 第3層（LLMオーケストレーション層）
 > **概要**: IDEに統合されたAIアシスタント。UIとランタイムを一体化し、開発者の作業フローに溶け込むAI体験を提供。
@@ -504,8 +504,3 @@ graph TB
 - [Copilot Chat](https://docs.github.com/en/copilot/using-github-copilot/using-github-copilot-chat-in-your-ide)
 - [Copilot Edits](https://docs.github.com/en/copilot/using-github-copilot/code-review-with-copilot)
 - [Copilot Instructions](https://docs.github.com/en/copilot/customizing-copilot/adding-repository-instructions-for-github-copilot)
-
----
-
-*作成日: 2026-02-22*
-*対象: 5層モデル 第5層（UI・運用層）+ 第3層（LLMオーケストレーション層）*

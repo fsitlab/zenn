@@ -1,12 +1,10 @@
 ---
-title: "第4層「外部ツール層」詳細解説 (b) エージェント連携"
+title: "４章：第4層「外部ツール層」 (1) エージェント連携"
 ---
 
-# 第4層「外部ツール層」詳細解説 (b) エージェント連携
+# 第4層「外部ツール層」詳細解説 (1) エージェント連携
 
-> **シリーズ**: AIエージェント概念マップ詳細解説
 > **対象層**: 第4層（外部ツール層）- エージェント連携編
-> **関連章**: 元記事 第8章（Subagent）、第9章（Agent Teams）、04_外部ツール層.md
 
 ---
 
@@ -694,9 +692,3 @@ disallowedTools: Write, Bash, Edit
 ### 解説記事
 - [Anthropic "Building Effective Agents"](https://www.anthropic.com/research/building-effective-agents) — Orchestrator-Workers パターン
 - [Chip Huyen "Agents"](https://huyenchip.com/2025/01/07/agents.html) — Multi-Agent Systems
-
----
-
-*作成日: 2026-02-22*
-*シリーズ: AIエージェント概念マップ詳細解説*
-*参照: 元記事 第8章（Subagent）、第9章（Agent Teams）*

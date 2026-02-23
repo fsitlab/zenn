@@ -1,14 +1,9 @@
 ---
-title: "第4層「外部ツール層」詳細解説 (c) Claude Code設定ファイル"
+title: "3章：第3層「LLMオーケストレーション層」 (1) Claude Code設定ファイル"
 ---
 
-# 第4層「外部ツール層」詳細解説 (c) Claude Code設定ファイル
+# 3章：第3層「LLMオーケストレーション層」 (1) Claude Code設定ファイル
 
-> **シリーズ**: AIエージェント概念マップ詳細解説
-> **対象**: .claude配下の設定ファイル群
-> **関連章**: [03_LLMオーケストレーション層.md](./03_LLMオーケストレーション層.md)、[04_外部ツール層.md](./04_外部ツール層.md)
-
----
 
 ## 1. 概要：.claudeディレクトリの構造と役割
 
@@ -658,8 +653,3 @@ flowchart TD
 - [Goose (Block Inc.)](https://block.github.io/goose/)
 - [OpenAI Codex / AGENTS.md](https://agents.md/)
 - [Cursor Rules](https://docs.cursor.com/)
-
----
-
-*作成日: 2026-02-22*
-*シリーズ: AIエージェント概念マップ詳細解説*

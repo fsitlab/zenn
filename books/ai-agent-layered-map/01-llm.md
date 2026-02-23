@@ -1,13 +1,11 @@
 ---
-title: "第1層「LLM層」詳細解説：モデルの本質から各社チューニング方針まで"
+title: "１章：第1層「LLM層」詳細解説～モデルの本質から各社チューニング方針まで～"
 ---
 
 # 第1層「LLM層」詳細解説：モデルの本質から各社チューニング方針まで
 
 > **5層モデルでの位置**: 第1層（LLM層）
 > **概要**: モデルの能力そのもの。ファインチューニング、LoRA、モデル系列、各社のチューニング方針を解説する。
-
-*作成日: 2026-02-22*
 
 ---
 
@@ -350,9 +348,3 @@ o系（o1, o3等）:   推論特化・Reasoning Tokens・遅いが正確
 - 🔗 [Anthropic Constitutional AI](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback)
 - 🔗 [Chip Huyen "Building LLM applications for production"](https://huyenchip.com/2023/04/11/llm-engineering.html)
 - 🔗 [MTEB Leaderboard（埋め込みモデルベンチマーク）](https://huggingface.co/spaces/mteb/leaderboard)
-- 📗 Chip Huyen "AI Engineering: Building Applications with Foundation Models" (O'Reilly 2025)
-
----
-
-*作成日: 2026-02-22*
-*対象: AIエージェント概念マップ 第1層「LLM層」の詳細解説*

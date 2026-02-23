@@ -1,5 +1,5 @@
 ---
-title: "第3層「LLMオーケストレーション層」詳細解説"
+title: "３章：第3層「LLMオーケストレーション層」"
 ---
 
 # 第3層「LLMオーケストレーション層」詳細解説
@@ -375,9 +375,3 @@ Q3. UIのみ、またはLLMに直接関係しない周辺機能か？
 - 🔗 [Anthropic "Building Effective Agents"](https://www.anthropic.com/research/building-effective-agents)
 - 🔗 [Chip Huyen "Agents"](https://huyenchip.com/2025/01/07/agents.html)
 - 🔗 [Phil Schmid "Context Engineering"](https://www.philschmid.de/context-engineering)
-
----
-
-*作成日: 2026-02-22*
-*シリーズ: AIエージェント概念マップ 詳細解説*
-*対象: 第3層（LLMオーケストレーション層）*

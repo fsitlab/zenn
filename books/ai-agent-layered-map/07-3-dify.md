@@ -1,13 +1,11 @@
 ---
-title: "Dify：ノーコード/ローコードLLMアプリ開発プラットフォーム"
+title: "７章：製品解説 (3) Dify：ノーコード/ローコードLLMアプリ開発プラットフォーム"
 ---
 
 # Dify：ノーコード/ローコードLLMアプリ開発プラットフォーム
 
 > **5層モデルでの位置**: 第3層（LLMオーケストレーション層）を中心に、全5層を統合的にカバー
 > **概要**: GUIでワークフローを構築し、RAG・エージェント・API公開まで一気通貫で実現するオープンソースプラットフォーム。
-
-*作成日: 2026-02-22*
 
 ---
 
@@ -445,8 +443,3 @@ Q3. 非エンジニアでも運用・改善したいか？
 
 - [Anthropic "Building Effective Agents"](https://www.anthropic.com/research/building-effective-agents)
 - [Chip Huyen "Agents"](https://huyenchip.com/2025/01/07/agents.html)
-
----
-
-*作成日: 2026-02-22*
-*シリーズ: AIエージェント概念マップ 詳細解説*

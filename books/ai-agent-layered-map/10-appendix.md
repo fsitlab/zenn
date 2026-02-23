@@ -1,5 +1,5 @@
 ---
-title: "付録"
+title: "10章：付録"
 ---
 
 # 付録
@@ -201,35 +201,11 @@ OpenAI Codex:
 
 ---
 
-## 付録C 書籍リスト
+## 付録C 記事リスト
 
-### C-1. 主要書籍
 
-| 書籍 | 著者 | 出版社 | 出版年 | 特に参考になる章 |
-|------|------|--------|--------|-----------------|
-| **AI Engineering: Building Applications with Foundation Models** | Chip Huyen | O'Reilly | 2025 | Agents / RAG / Tool Use / Planning / Evaluation |
-| **LLM Engineer's Handbook** | Paul Iusztin, Maxime Labonne | Packt | 2024 | LLMOps / プロダクション化 / デプロイメント |
-| **Building LLM Powered Applications** | Valentina Alto | Packt | 2024 | LangChain / メモリ / ツール統合 |
-| **Prompt Engineering for LLMs** | John Beurer-Kellner et al. | O'Reilly | 2024 | プロンプト設計原則 / few-shot / CoT |
-| **Natural Language Processing with Transformers** | Lewis Tunstall et al. | O'Reilly | 2022 (Revised 2024) | Transformer基礎 / HuggingFace入門 |
-| **Designing Machine Learning Systems** | Chip Huyen | O'Reilly | 2022 | MLシステム設計全般（LLM以前の基礎） |
 
-### C-2. Chip Huyen "AI Engineering" の章構成
-
-本記事で特に参照した章:
-
-| 章 | タイトル | 主な内容 |
-|----|---------|---------|
-| Chapter 1 | Introduction to Foundation Models | FM概論、能力と限界 |
-| Chapter 4 | Evaluate AI Systems | 評価指標、ベンチマーク、人間評価 |
-| Chapter 5 | Prompt Engineering | プロンプト設計、RAG、構造化出力 |
-| Chapter 6 | RAG and Agents | RAGアーキテクチャ、Tool Use、エージェント設計 |
-| Chapter 7 | Finetuning | ファインチューニング手法 |
-| Chapter 8 | Dataset Engineering | データセット作成、品質管理 |
-| Chapter 9 | Inference Optimization | 推論最適化、量子化 |
-| Chapter 10 | AI Engineering Architecture and User Feedback | システムアーキテクチャ |
-
-### C-3. オンラインリソース
+### C-1. 英語リソース
 
 | リソース | URL | 内容 |
 |----------|-----|------|
@@ -240,7 +216,7 @@ OpenAI Codex:
 | Simon Willison's Blog | https://simonwillison.net/ | LLM・AI関連の技術解説 |
 | Hamel Husain Blog | https://hamel.dev/blog/ | LLMアプリ開発実践 |
 
-### C-4. 日本語リソース
+### C-2. 日本語リソース
 
 | リソース | URL | 内容 |
 |----------|-----|------|
@@ -252,7 +228,7 @@ OpenAI Codex:
 | GMO「フレームワーク選定ガイド」 | https://recruit.group.gmo/engineer/jisedai/blog/agents-sdk/ | 各SDKの特徴と選定基準 |
 | Zenn「AI Agent認可の3層アーキテクチャ入門」 | https://zenn.dev/exwzd/articles/20251224_aiagent_authz_architecture | 認可に特化した3層モデル |
 
-### C-5. 層モデル・アーキテクチャ解説（英語）
+### C-3. 層モデル・アーキテクチャ解説（英語）
 
 | リソース | URL | 内容 |
 |----------|-----|------|
@@ -263,7 +239,7 @@ OpenAI Codex:
 | IBM: AI Agent Orchestration | https://www.ibm.com/think/topics/ai-agent-orchestration | オーケストレーション概念解説 |
 | Algolia: Agentic Architecture for Enterprise | https://www.algolia.com/blog/ai/agentic-architecture | エンタープライズ向けエージェント設計 |
 
-### C-6. プロトコル比較（MCP/A2A/ACP）
+### C-4. プロトコル比較（MCP/A2A/ACP）
 
 | リソース | URL | 内容 |
 |----------|-----|------|
@@ -276,7 +252,7 @@ OpenAI Codex:
 | Clarifai: MCP vs A2A Clearly Explained | https://www.clarifai.com/blog/mcp-vs-a2a-clearly-explained | 明快なプロトコル比較 |
 | Stream: Top AI Agent Protocols 2026 | https://getstream.io/blog/ai-agent-protocols/ | MCP/A2A/ACP等の包括的解説 |
 
-### C-7. フレームワーク比較
+### C-5. フレームワーク比較
 
 | リソース | URL | 内容 |
 |----------|-----|------|
@@ -286,7 +262,7 @@ OpenAI Codex:
 | Shakudo: Top 9 AI Agent Frameworks | https://www.shakudo.io/blog/top-9-ai-agent-frameworks | フレームワーク一覧 |
 | Chatbase: LLM Agent Framework Guide | https://www.chatbase.co/blog/llm-agent-framework-guide | 2026年版ガイド |
 
-### C-8. 製品比較（Claude Code/Cursor/Dify等）
+### C-6. 製品比較（Claude Code/Cursor/Dify等）
 
 | リソース | URL | 内容 |
 |----------|-----|------|
@@ -297,64 +273,10 @@ OpenAI Codex:
 | GPTBots: Dify AI Review 2026 | https://www.gptbots.ai/blog/dify-ai | 機能・代替製品解説 |
 | Render: Testing AI Coding Agents 2025 | https://render.com/blog/ai-coding-agents-benchmark | コーディングエージェントベンチマーク |
 
-### C-9. 日本語書籍（2024-2025年）
-
-| 書籍 | 著者 | 出版社 | 出版年 | 内容 |
-|------|------|--------|--------|------|
-| AIエージェント開発／運用入門 | 御田稔, 大坪悠, 塚田真規 | SBクリエイティブ | 2025 | ReAct/Function Calling/フレームワーク解説 |
-| AIエージェント革命 | シグマクシス | 日経BP | 2025 | ビジネス×技術の体系的解説 |
-| AIエージェント白書2025 | CMCリサーチ | CMC出版 | 2025 | エージェントタイプ分類・市場動向 |
-| やさしく学ぶLLMエージェント | 井上顧基, 下垣内隆太, 松山純大 | オーム社 | 2025 | 基礎からマルチエージェント構築まで |
-| LangChainとLangGraphによるRAG・AIエージェント入門 | 西見公宏, 吉田真吾, 大嶋勇樹 | 技術評論社 | 2024 | LangChain/LangGraph実践 |
-| Azure OpenAIエージェント・RAG構築実践ガイド | 菅原允他 | 日経BP | 2025 | Azure向け実装ガイド |
-| 実践AIエージェントの教科書 | 日立製作所 AI CoE | リックテレコム | 2025 | 産業別導入事例 |
-| AIエージェント | EY Japan | 東洋経済新報社 | 2025 | 入門書 |
 
 ---
 
-## 付録D 未解決・要調査事項
-
-### D-1. API・プロトコル関連
-
-- [ ] **Gemini API の tool_choice 詳細**: `tool_config`の`mode`オプションの全一覧と挙動の違い
-- [ ] **OpenAI Responses API**: 2025年リリースのResponses APIとChat Completions APIの違い
-- [ ] **A2A プロトコルの採用状況**: Google以外のベンダーでの実装状況
-- [ ] **MCP Streamable HTTP**: SSE vs WebSocket vs Streamable HTTPの実装差
-
-### D-2. ツール・フレームワーク関連
-
-- [ ] **OpenCode**: OSSのClaudeCode代替のディレクトリ構造と機能比較
-- [ ] **Aider**: Claude Code / Codex との機能比較
-- [ ] **Claude Code SubagentとAgentCore Runtime連携**: 実際の制限と構成パターン
-- [ ] **Dify / LangChain のTool Use抽象化**: 各APIをどう内部変換しているか
-
-### D-3. 権限・セキュリティ関連
-
-- [ ] **Gooseのpermission設計**: Claude Code Hooksとの詳細比較
-- [ ] **MCP Remote の OAuth実装状況**: 主要MCPサーバーでの認証対応
-- [ ] **AgentCore Cedar policy**: サンプルポリシーと設計パターン
-
-### D-4. アーキテクチャ関連
-
-- [ ] **Orchestrator-Workers vs Mesh**: 実際のユースケースでのパフォーマンス比較
-- [ ] **長時間実行エージェント**: セッション管理とチェックポイントの設計パターン
-- [ ] **マルチモデルエージェント**: 同一タスク内で複数モデルを使い分ける設計
-
-### D-5. 評価・運用関連
-
-- [ ] **エージェント評価基準**: 信頼性・安全性の定量評価手法
-- [ ] **コスト最適化**: Subagent分割によるトークン削減の実測値
-- [ ] **本番運用でのHooksパターン**: 実際のPreToolUseスクリプト例
-
-### D-6. 将来動向
-
-- [ ] **Claude 4 / GPT-5 世代のTool Use**: 新しいAPIフォーマットの可能性
-- [ ] **Computer Use / Browser Use**: GUIエージェントの標準化
-- [ ] **エージェント間相互運用性**: 異なるフレームワーク間でのエージェント呼び出し
-
----
-
-## 付録E 用語集（クイックリファレンス）
+## 付録D 用語集（クイックリファレンス）
 
 | 用語 | 定義 | 属する層 |
 |------|------|---------|
@@ -372,13 +294,8 @@ OpenAI Codex:
 
 ---
 
-## 付録F 変更履歴
+## 付録E 変更履歴
 
 | 日付 | バージョン | 変更内容 |
 |------|-----------|---------|
-| 2026-02-22 | 1.0 | 初版作成 |
-
----
-
-*調査日: 2026-02-22*
-*主な参照: Claude Code公式docs / OpenAI Codex公式 / Amazon AgentCore公式 / Chip Huyen "AI Engineering" / Anthropic "Building Effective Agents"*
+| 2026-02-23 | 1.0 | 初版作成 |

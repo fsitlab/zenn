@@ -1,8 +1,8 @@
 ---
-title: "Claude Code：5層モデルで理解するAIコーディングエージェント"
+title: "７章：製品解説 (1) Claude Code：AIコーディングエージェント"
 ---
 
-# Claude Code：5層モデルで理解するAIコーディングエージェント
+# Claude Code：AIコーディングエージェント
 
 > **5層モデルでの位置**: 第5層（ターミナルUI）+ 第3層（LLMオーケストレーション層：ランタイム）+ 第2層（CLAUDE.md/Skills）+ 第1層（LLM）
 > **概要**: Anthropic公式のCLIコーディングエージェント。ターミナルから直接LLMと対話し、コードベース全体を理解・編集する。
@@ -360,9 +360,3 @@ Claude Codeの設定ファイル（`.mcp.json`、`settings.json`、`CLAUDE.md`�
 - [Anthropic API ドキュメント](https://docs.anthropic.com/)
 - [MCP 公式サイト](https://modelcontextprotocol.io/)
 - [Anthropic "Building Effective Agents"](https://www.anthropic.com/research/building-effective-agents)
-
----
-
-*作成日: 2026-02-22*
-*シリーズ: AIエージェント概念マップ詳細解説*
-*対象: Claude Code の5層モデルでの位置づけと機能概要*

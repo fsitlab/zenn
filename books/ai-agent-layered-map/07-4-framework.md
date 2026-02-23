@@ -1,5 +1,5 @@
 ---
-title: "開発フレームワーク詳細解説：LangChain / Strands Agents / Bedrock AgentCore"
+title: "７章：製品解説 (4) 開発フレームワーク詳細解説：LangChain / Strands Agents / Bedrock AgentCore"
 ---
 
 # 開発フレームワーク詳細解説：LangChain / Strands Agents / Bedrock AgentCore
@@ -563,9 +563,3 @@ flowchart TD
 - [Anthropic "Building Effective Agents"](https://www.anthropic.com/research/building-effective-agents)
 - [Chip Huyen "Agents"](https://huyenchip.com/2025/01/07/agents.html)
 - [AWS Blog: Introducing Strands Agents](https://aws.amazon.com/blogs/machine-learning/introducing-strands-agents/)
-
----
-
-*作成日: 2026-02-22*
-*シリーズ: AIエージェント概念マップ詳細解説*
-*対象層: 第3層（LLMオーケストレーション層）- 開発フレームワーク*

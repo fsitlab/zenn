@@ -1,5 +1,5 @@
 ---
-title: "第2層：通信層（LLM入出力層）"
+title: "２章：第2層「通信層（LLM入出力層）」"
 ---
 
 # 第2層：通信層（LLM入出力層）
@@ -706,8 +706,3 @@ ws.onmessage = (event) => {
 - [AI API Comparison 2024: Anthropic vs Google vs OpenAI](https://big-agi.com/blog/ai-api-comparison-2024-anthropic-vs-google-vs-openai)
 - [LLM API Tool Comparison: OpenAI vs Claude vs Grok vs Gemini](https://apimagic.ai/blog/llm-tool-comparison)
 - [Cloudflare "Code Mode: the better way to use MCP"](https://blog.cloudflare.com/code-mode/)
-
----
-
-*作成日: 2026-02-22*
-*対象: 5層モデル 第2層（通信層）*
