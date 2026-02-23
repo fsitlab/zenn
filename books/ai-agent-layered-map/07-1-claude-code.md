@@ -73,11 +73,11 @@ Claude Codeは複数の層にまたがるアーキテクチャを持つ。
       └── エージェントループ
 
 第2層：通信層
-      ├── 2層A（クライアント起点）
+      ├── 2層IN（クライアント起点）
       │     ├── CLAUDE.md（system promptへ注入）
       │     ├── Skills（必要時にロード）
       │     └── tools[]（MCP経由で取得）
-      └── 2層B（LLM起点）
+      └── 2層OUT（LLM起点）
             ├── tool_use（ツール呼び出し判断）
             └── レスポンス生成
 
@@ -92,8 +92,8 @@ Claude Codeは複数の層にまたがるアーキテクチャを持つ。
 | **第5層（UI・運用層）** | ユーザーとの接点 | ターミナルUI、VS Code統合 |
 | **第4層** | 実行対象 | ファイルシステム、Git、MCPサーバー |
 | **第3層（LLMオーケストレーション層）** | ランタイム・制御 | Hooks、Permissions、MCPクライアント |
-| **第2層A** | LLMへの入力構築 | CLAUDE.md、Skills、tools[] |
-| **第2層B** | LLMからの出力解釈 | tool_use実行判断 |
+| **第2層IN** | LLMへの入力構築 | CLAUDE.md、Skills、tools[] |
+| **第2層OUT** | LLMからの出力解釈 | tool_use実行判断 |
 | **第1層** | 推論エンジン | Claude Sonnet/Opus |
 
 ### 2-3. 層の境界と責務
@@ -113,8 +113,8 @@ flowchart TB
     end
 
     subgraph Layer2["第2層: 通信層"]
-        Layer2A["2層A: CLAUDE.md, Skills, tools[]"]
-        Layer2B["2層B: tool_use, レスポンス"]
+        Layer2A["2層IN: CLAUDE.md, Skills, tools[]"]
+        Layer2B["2層OUT: tool_use, レスポンス"]
     end
 
     subgraph Layer1["第1層: LLM層"]
@@ -156,16 +156,16 @@ sequenceDiagram
     participant LLM as 第1層<br/>Claude
 
     Note over User,LLM: 初期化フェーズ
-    Runtime->>Runtime: CLAUDE.md読み込み（第2層A）
+    Runtime->>Runtime: CLAUDE.md読み込み（第2層IN）
     Runtime->>MCP: tools/list
     MCP-->>Runtime: ツール定義
-    Runtime->>Runtime: tools[]構築（第2層A）
+    Runtime->>Runtime: tools[]構築（第2層IN）
 
     Note over User,LLM: 実行フェーズ
     User->>UI: 自然言語で指示
     UI->>Runtime: ユーザー入力
-    Runtime->>LLM: プロンプト + tools[]（第2層A）
-    LLM-->>Runtime: tool_use: Read（第2層B）
+    Runtime->>LLM: プロンプト + tools[]（第2層IN）
+    LLM-->>Runtime: tool_use: Read（第2層OUT）
 
     Runtime->>Runtime: PreToolUse Hook実行
     alt Hookがブロック（exit 2）
@@ -174,10 +174,10 @@ sequenceDiagram
         Runtime->>MCP: tools/call: Read
         MCP-->>Runtime: ファイル内容
         Runtime->>Runtime: PostToolUse Hook実行
-        Runtime->>LLM: tool_result（第2層A）
+        Runtime->>LLM: tool_result（第2層IN）
     end
 
-    LLM-->>Runtime: 最終回答（第2層B）
+    LLM-->>Runtime: 最終回答（第2層OUT）
     Runtime->>UI: 回答を表示
     UI->>User: 結果表示
 ```
@@ -186,13 +186,13 @@ sequenceDiagram
 
 | フェーズ | 処理内容 | 層 |
 |----------|----------|-----|
-| **初期化** | CLAUDE.md読み込み、MCP接続、tools[]構築 | 第3層→第2層A |
+| **初期化** | CLAUDE.md読み込み、MCP接続、tools[]構築 | 第3層→第2層IN |
 | **ユーザー入力受付** | ターミナルからの入力 | 第5層 |
-| **LLM呼び出し** | プロンプト構築、API呼び出し | 第3層→第2層A→第1層 |
-| **tool_use判断** | LLMがツール呼び出しを決定 | 第1層→第2層B |
+| **LLM呼び出し** | プロンプト構築、API呼び出し | 第3層→第2層IN→第1層 |
+| **tool_use判断** | LLMがツール呼び出しを決定 | 第1層→第2層OUT |
 | **Hook実行** | PreToolUse/PostToolUseの制御 | 第3層 |
 | **ツール実行** | MCP経由でツール呼び出し | 第3層→第4層 |
-| **結果返却** | tool_resultをLLMに送信 | 第4層→第3層→第2層A |
+| **結果返却** | tool_resultをLLMに送信 | 第4層→第3層→第2層IN |
 
 ---
 
@@ -284,7 +284,7 @@ sequenceDiagram
   ↓
 タスク到着時: 必要なSkillの全体をロード
   ↓
-第2層A: system promptに注入
+第2層IN: system promptに注入
 ```
 
 **定義場所**: `.claude/skills/<skill-name>/SKILL.md`
@@ -302,8 +302,8 @@ sequenceDiagram
 | **MCPクライアント** | 第3層 | ツール定義の取得・変換 |
 | **Hooks** | 第3層 | 決定論的制御 |
 | **Permissions** | 第3層 | ツール実行の許可・禁止 |
-| **CLAUDE.md** | 第2層A | system promptへの注入 |
-| **Skills** | 第2層A | 必要時のプロンプトロード |
+| **CLAUDE.md** | 第2層IN | system promptへの注入 |
+| **Skills** | 第2層IN | 必要時のプロンプトロード |
 | **Sub-agents** | 第4層 | タスク委譲 |
 | **Agent Teams** | 第4層 | 並列協働 |
 

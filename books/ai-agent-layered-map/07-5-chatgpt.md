@@ -70,8 +70,8 @@ flowchart TB
     end
 
     subgraph Layer2["第2層: 通信層"]
-        Layer2A["2層A: GPTs Instructions / Project設定<br/>・カスタムシステムプロンプト<br/>・ファイル添付によるコンテキスト注入<br/>・Actionsのツール宣言"]
-        Layer2B["2層B: ツール利用判断<br/>・LLMが外部ツールを呼び出す判断"]
+        Layer2A["2層IN: GPTs Instructions / Project設定<br/>・カスタムシステムプロンプト<br/>・ファイル添付によるコンテキスト注入<br/>・Actionsのツール宣言"]
+        Layer2B["2層OUT: ツール利用判断<br/>・LLMが外部ツールを呼び出す判断"]
     end
 
     subgraph Layer1["第1層: LLM層"]
@@ -91,8 +91,8 @@ flowchart TB
 | **第5層** | WebUI | ブラウザ・モバイルアプリで提供 |
 | **第4層** | Code Interpreter, DALL-E, Web検索, Actions | OpenAI管理のツール群 |
 | **第3層（LLMオーケストレーション）** | OpenAIバックエンド | ユーザーからは見えない |
-| **第2層A** | GPTs Instructions, Project設定 | ユーザーがカスタマイズ可能 |
-| **第2層B** | ツール利用判断 | LLMが自動判断 |
+| **第2層IN** | GPTs Instructions, Project設定 | ユーザーがカスタマイズ可能 |
+| **第2層OUT** | ツール利用判断 | LLMが自動判断 |
 | **第1層** | GPT-4o, o1等 | モデル選択可能 |
 
 ---
@@ -106,8 +106,8 @@ GPTsは、ユーザーがカスタムAIアシスタントを作成・共有で�
 ```mermaid
 flowchart TB
     subgraph GPTConfig["GPT設定画面"]
-        Instructions["Instructions（指示）<br/>「あなたは〜です」のようなペルソナ設定<br/>→ 第2層A：システムプロンプト相当"]
-        Knowledge["Knowledge（知識ファイル）<br/>PDF、ドキュメント等をアップロード<br/>→ 第2層A：コンテキスト注入"]
+        Instructions["Instructions（指示）<br/>「あなたは〜です」のようなペルソナ設定<br/>→ 第2層IN：システムプロンプト相当"]
+        Knowledge["Knowledge（知識ファイル）<br/>PDF、ドキュメント等をアップロード<br/>→ 第2層IN：コンテキスト注入"]
         Actions["Actions（外部API連携）<br/>OpenAPIスキーマで外部APIを定義<br/>→ 第4層：外部ツール"]
         Capabilities["Capabilities（機能）<br/>Code Interpreter / DALL-E / Web検索 有効化<br/>→ 第4層：組み込みツール"]
     end
@@ -115,16 +115,16 @@ flowchart TB
     Instructions --> Knowledge --> Actions --> Capabilities
 ```
 
-### Instructions（第2層A相当）
+### Instructions（第2層IN相当）
 
 GPTsのInstructionsは、Claude CodeのCLAUDE.mdに相当する「システムプロンプト」。
 
 | 項目 | 説明 | 5層モデル |
 |------|------|-----------|
-| **ペルソナ** | 「あなたは専門家です」等の役割定義 | 第2層A |
-| **振る舞い** | 「常に日本語で回答」等のルール | 第2層A |
-| **制約** | 「〜については回答しない」等の制限 | 第2層A |
-| **例示** | 回答フォーマットの例 | 第2層A |
+| **ペルソナ** | 「あなたは専門家です」等の役割定義 | 第2層IN |
+| **振る舞い** | 「常に日本語で回答」等のルール | 第2層IN |
+| **制約** | 「〜については回答しない」等の制限 | 第2層IN |
+| **例示** | 回答フォーマットの例 | 第2層IN |
 
 ```text
 # Instructions例
@@ -223,8 +223,8 @@ Projectsは、会話をプロジェクト単位で整理し、共有設定やフ
 ```mermaid
 flowchart TB
     subgraph Project["Project"]
-        Instructions["Project Instructions<br/>プロジェクト全体の指示・ルール<br/>→ 第2層A：コンテキストに自動追加"]
-        Files["Files<br/>プロジェクト共有ファイル<br/>→ 第2層A：Knowledge相当"]
+        Instructions["Project Instructions<br/>プロジェクト全体の指示・ルール<br/>→ 第2層IN：コンテキストに自動追加"]
+        Files["Files<br/>プロジェクト共有ファイル<br/>→ 第2層IN：Knowledge相当"]
         Conversations["Conversations<br/>プロジェクト内の会話一覧<br/>→ 第5層：UI上の整理機能"]
     end
 
@@ -235,9 +235,9 @@ flowchart TB
 
 | 方式 | 説明 | 5層モデル |
 |------|------|-----------|
-| **Project Files** | プロジェクト全体で共有 | 第2層A（永続） |
-| **Chat添付** | 特定の会話でのみ有効 | 第2層A（一時） |
-| **GPTs Knowledge** | GPT固有の知識 | 第2層A（GPT単位） |
+| **Project Files** | プロジェクト全体で共有 | 第2層IN（永続） |
+| **Chat添付** | 特定の会話でのみ有効 | 第2層IN（一時） |
+| **GPTs Knowledge** | GPT固有の知識 | 第2層IN（GPT単位） |
 
 ```
 コンテキストの優先順位：
@@ -330,21 +330,21 @@ flowchart LR
 | 機能 | 主体となる層 | 利用する層 |
 |------|-------------|-----------|
 | **ChatGPT WebUI** | 第5層 | - |
-| **Code Interpreter** | 第4層 | 第2層B（呼び出し判断） |
-| **DALL-E** | 第4層 | 第2層B（呼び出し判断） |
-| **Web検索** | 第4層 | 第2層B（呼び出し判断） |
-| **Actions** | 第4層 | 第2層A（宣言）, 第2層B（判断） |
-| **GPTs Instructions** | 第2層A | 第1層（LLMが解釈） |
-| **Project設定** | 第2層A | 第1層（LLMが解釈） |
+| **Code Interpreter** | 第4層 | 第2層OUT（呼び出し判断） |
+| **DALL-E** | 第4層 | 第2層OUT（呼び出し判断） |
+| **Web検索** | 第4層 | 第2層OUT（呼び出し判断） |
+| **Actions** | 第4層 | 第2層IN（宣言）, 第2層OUT（判断） |
+| **GPTs Instructions** | 第2層IN | 第1層（LLMが解釈） |
+| **Project設定** | 第2層IN | 第1層（LLMが解釈） |
 | **GPT-4o / o1** | 第1層 | - |
 
 ### ポイント
 
-1. **GPTsは「第2層A + 第4層」のパッケージング**
-   - Instructionsで第2層Aを、Actionsで第4層を定義
+1. **GPTsは「第2層IN + 第4層」のパッケージング**
+   - Instructionsで第2層INを、Actionsで第4層を定義
    - ユーザーが簡単にカスタマイズ可能
 
-2. **Projectsは「第2層Aの整理機能」**
+2. **Projectsは「第2層INの整理機能」**
    - ファイルと設定をプロジェクト単位で管理
    - Claude.aiのProjectsと同様のコンセプト
 

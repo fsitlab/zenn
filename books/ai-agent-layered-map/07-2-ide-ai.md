@@ -52,8 +52,8 @@ IDE統合型AIアシスタントは、開発者がコードを書く環境（IDE
            │
            ↓
 第2層：通信層
-  ├── 2層A: プロンプト構築（ファイル内容、カーソル位置等）
-  └── 2層B: LLM応答（コード生成、ツール呼び出し）
+  ├── 2層IN: プロンプト構築（ファイル内容、カーソル位置等）
+  └── 2層OUT: LLM応答（コード生成、ツール呼び出し）
            │
            ↓
 第1層：LLM層
@@ -125,8 +125,8 @@ flowchart TB
     end
 
     subgraph Layer2["第2層: 通信層"]
-        Layer2A["2層A: プロンプト構築<br/>・ファイル内容、カーソル位置<br/>・@codebase、@file、@docs<br/>・Rules（.cursor/rules/）"]
-        Layer2B["2層B: LLM応答<br/>・コード生成<br/>・diff形式の編集提案"]
+        Layer2A["2層IN: プロンプト構築<br/>・ファイル内容、カーソル位置<br/>・@codebase、@file、@docs<br/>・Rules（.cursor/rules/）"]
+        Layer2B["2層OUT: LLM応答<br/>・コード生成<br/>・diff形式の編集提案"]
     end
 
     subgraph Layer1["第1層: LLM層"]
@@ -153,8 +153,8 @@ sequenceDiagram
     Runtime->>Runtime: 開いているファイル、<br>カーソル位置、Rulesを取得
     Runtime->>MCP: MCPツール一覧取得（設定時）
     MCP-->>Runtime: tools[]
-    Runtime->>LLM: プロンプト + ツール宣言送信<br>(第2層A)
-    LLM-->>Runtime: 応答 / tool_use<br>(第2層B)
+    Runtime->>LLM: プロンプト + ツール宣言送信<br>(第2層IN)
+    LLM-->>Runtime: 応答 / tool_use<br>(第2層OUT)
 
     alt ツール利用の場合
         Runtime->>MCP: ツール実行
@@ -276,8 +276,8 @@ flowchart TB
     end
 
     subgraph Layer2["第2層: 通信層"]
-        Layer2A["2層A: プロンプト構築<br/>・ファイル内容、カーソル位置<br/>・copilot-instructions.md<br/>・#file, #codebase 等"]
-        Layer2B["2層B: LLM応答<br/>・コード生成<br/>・編集提案"]
+        Layer2A["2層IN: プロンプト構築<br/>・ファイル内容、カーソル位置<br/>・copilot-instructions.md<br/>・#file, #codebase 等"]
+        Layer2B["2層OUT: LLM応答<br/>・コード生成<br/>・編集提案"]
     end
 
     subgraph Layer1["第1層: LLM層"]
@@ -308,8 +308,8 @@ sequenceDiagram
         GitHub-->>Backend: ファイル、Issue、PR情報
     end
 
-    Backend->>LLM: プロンプト送信<br>(第2層A)
-    LLM-->>Backend: 応答<br>(第2層B)
+    Backend->>LLM: プロンプト送信<br>(第2層IN)
+    LLM-->>Backend: 応答<br>(第2層OUT)
 
     alt Copilot Editsの場合
         Backend->>Backend: 複数ファイルへの<br>変更を計画
@@ -438,8 +438,8 @@ flowchart LR
 | **第5層** | IDE UI | VSCode拡張UI | ターミナルUI |
 | **第4層** | MCPサーバー | GitHub API | MCPサーバー |
 | **第3層** | Cursor Runtime | Copilot Backend | Claude Code Runtime |
-| **第2層A** | Rules | copilot-instructions.md | CLAUDE.md, Skills |
-| **第2層B** | tool_use | tool_use | tool_use |
+| **第2層IN** | Rules | copilot-instructions.md | CLAUDE.md, Skills |
+| **第2層OUT** | tool_use | tool_use | tool_use |
 | **第1層** | Claude/GPT-4 | GPT-4 | Claude |
 
 ### 5-4. 使い分けの指針

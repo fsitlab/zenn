@@ -129,7 +129,7 @@ title: "第4層「外部ツール層」詳細解説 (a) MCP・RAG・ツール"
 
 **RAGにおける位置づけ**:
 
-#### 従来型RAG（第2層Aへ注入）
+#### 従来型RAG（第2層INへ注入）
 
 ```mermaid
 sequenceDiagram
@@ -142,8 +142,8 @@ sequenceDiagram
     App->>VDB: 検索クエリ
     VDB-->>App: 関連ドキュメント
     Note over App: 検索結果を<br/>system promptに埋め込み
-    App->>LLM: プロンプト + 検索結果（第2層A）
-    LLM-->>App: 回答（第2層B）
+    App->>LLM: プロンプト + 検索結果（第2層IN）
+    LLM-->>App: 回答（第2層OUT）
     App-->>User: 回答を表示
 ```
 
@@ -159,11 +159,11 @@ sequenceDiagram
     participant LLM as 第1層<br/>LLM
 
     User->>App: 質問を入力
-    App->>LLM: プロンプト + tools[]宣言（第2層A）
-    LLM-->>App: tool_use: search（第2層B）
+    App->>LLM: プロンプト + tools[]宣言（第2層IN）
+    LLM-->>App: tool_use: search（第2層OUT）
     App->>VDB: 検索実行
     VDB-->>App: 検索結果
-    App->>LLM: tool_result: 検索結果（第2層A）
+    App->>LLM: tool_result: 検索結果（第2層IN）
 
     alt 追加検索が必要
         LLM-->>App: tool_use: search（別クエリ）
@@ -172,7 +172,7 @@ sequenceDiagram
         App->>LLM: tool_result: 追加結果
     end
 
-    LLM-->>App: 最終回答（第2層B）
+    LLM-->>App: 最終回答（第2層OUT）
     App-->>User: 回答を表示
 ```
 
@@ -207,10 +207,10 @@ sequenceDiagram
 **サブエージェントの層構造**:
 ```
 親エージェント（第1〜3層が稼働中）
-  └─ tool_use: Task（第2層Bで出力）
+  └─ tool_use: Task（第2層OUTで出力）
         └─ 第3層がサブエージェントを起動
               └─ サブエージェント内で第1〜3層が独立稼働
-              └─ 完了後、tool_resultで親に返却（第2層A）
+              └─ 完了後、tool_resultで親に返却（第2層IN）
 ```
 
 ---
@@ -303,15 +303,15 @@ sequenceDiagram
     Note over App,MCP: 初期化フェーズ
     App->>MCP: tools/list
     MCP-->>App: {tools: [...]}
-    Note over App: tools[]を第2層Aに追加
+    Note over App: tools[]を第2層INに追加
 
     Note over LLM,MCP: 実行フェーズ
-    App->>LLM: プロンプト + tools[]（第2層A）
-    LLM-->>App: tool_use: {name, input}（第2層B）
+    App->>LLM: プロンプト + tools[]（第2層IN）
+    LLM-->>App: tool_use: {name, input}（第2層OUT）
     App->>MCP: tools/call {name, arguments}
     MCP-->>App: {result: ...}
-    App->>LLM: tool_result（第2層A）
-    LLM-->>App: 最終回答（第2層B）
+    App->>LLM: tool_result（第2層IN）
+    LLM-->>App: 最終回答（第2層OUT）
 ```
 
 **ポイント**: MCPはあくまで第3層↔第4層の通信プロトコル。LLMが受け取るtools[]のJSON形式は変わらない。

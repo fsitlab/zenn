@@ -340,7 +340,7 @@ flowchart TB
         CoworkLogic["Claude Cowork (エージェントロジック)<br/>・タスク分解<br/>・操作計画立案<br/>・結果確認とリトライ判断"]
     end
 
-    subgraph Layer2B["第2層B: LLM起点の通信"]
+    subgraph Layer2B["第2層OUT: LLM起点の通信"]
         ToolUse["tool_use でツール呼び出しを判断<br/>「次はどの操作を行うべきか」をLLMが決定"]
     end
 
@@ -361,7 +361,7 @@ while not task_completed:
     # 1. スクリーンショット取得（第4層: computerツール）
     screenshot = computer_tool.screenshot()
 
-    # 2. LLMに送信（第2層B: tool_use判断）
+    # 2. LLMに送信（第2層OUT: tool_use判断）
     response = claude.messages.create(
         model="claude-3.5-sonnet",
         messages=[
@@ -385,7 +385,7 @@ while not task_completed:
 |-----|----------------------|
 | 第5層（UI・運用層） | Claude Desktop UI - ユーザーとの対話 |
 | 第3層（LLMオーケストレーション層） | エージェントロジック - タスク管理、状態管理 |
-| 第2層B（LLM起点） | tool_use判断 - 次のアクションを決定 |
+| 第2層OUT（LLM起点） | tool_use判断 - 次のアクションを決定 |
 | 第4層（外部ツール層） | computer/bash/text_editor - 実際の操作実行 |
 | 第1層（LLM層） | Claude 3.5 Sonnet等 - Vision + 推論 |
 

@@ -36,14 +36,14 @@ title: "相性問題の発生箇所：5層モデルによる整理"
 | # | 相性問題 | 発生層 | 原因 | 対策 |
 |---|----------|--------|------|------|
 | 1 | APIフォーマット不一致（arguments文字列化等） | 第1層 | ベンダー間でtool引数形式が異なる（OpenAI=文字列、Anthropic=オブジェクト） | LiteLLM等の統一ラッパー使用 / 変換処理の明示実装 |
-| 2 | tool descriptionが貧弱 | 第2層A | LLMはdescriptionを読んで「いつ使うか」を判断するため、曖昧な説明→ツール未使用・誤用 | description設計のベストプラクティス適用 / 評価フィードバック |
+| 2 | tool descriptionが貧弱 | 第2層IN | LLMはdescriptionを読んで「いつ使うか」を判断するため、曖昧な説明→ツール未使用・誤用 | description設計のベストプラクティス適用 / 評価フィードバック |
 | 3 | モデルがtool use未学習 | 第1層 | OSSモデルがtool useをfine-tuneされていない | tool use対応モデルの選択 / fine-tuning実施 |
 | 4 | ライブラリのバージョンとAPIのズレ | 第1層↔第3層 | LangChain等のラッパー層の更新遅れで新パラメータが使えない | APIを直接叩いて検証 / ライブラリ更新追従 |
-| 5 | HookがPermissionより弱い認識 | 第3層 | PreToolUseは第2層AのCLAUDE.mdより優先度が高いことの理解不足 | 「第3層は第2層より上位」の設計原則理解 |
+| 5 | HookがPermissionより弱い認識 | 第3層 | PreToolUseは第2層INのCLAUDE.mdより優先度が高いことの理解不足 | 「第3層は第2層より上位」の設計原則理解 |
 | 6 | MCPスキーマ不正 | 第3層↔第4層 | MCPサーバー実装のJSONスキーマ誤り→LLMが正しく呼べない | スキーマバリデーション / 公式SDKの利用 |
-| 7 | CLAUDE.mdが巨大すぎる | 第2層A | コンテキスト汚染・優先度喪失・Context Window圧迫 | Skillへの分割（Progressive Disclosure） / 階層化 |
-| 8 | Skillのdescriptionが曖昧 | 第2層A | 自動マッチ失敗（LLMが適切なSkillを選択できない） | description設計の精緻化 / テストによる検証 |
-| 9 | 従来RAGとTool型RAGの混同 | 第2層A↔第2層B | LLMの視点で「2層Aの文書注入」と「2層Bのtool_use」は全く別物 | RAG方式の明確な選択 / LLMへの文脈説明 |
+| 7 | CLAUDE.mdが巨大すぎる | 第2層IN | コンテキスト汚染・優先度喪失・Context Window圧迫 | Skillへの分割（Progressive Disclosure） / 階層化 |
+| 8 | Skillのdescriptionが曖昧 | 第2層IN | 自動マッチ失敗（LLMが適切なSkillを選択できない） | description設計の精緻化 / テストによる検証 |
+| 9 | 従来RAGとTool型RAGの混同 | 第2層IN↔第2層OUT | LLMの視点で「2層INの文書注入」と「2層OUTのtool_use」は全く別物 | RAG方式の明確な選択 / LLMへの文脈説明 |
 | 10 | Subagentのtools制限が甘い | 第3層↔第4層 | Subagentに過剰な権限を与えセキュリティリスク発生 | `tools`/`disallowedTools`の明示設定 / 最小権限原則 |
 | 11 | フレームワーク間Agent通信（A2A未対応） | 第4層 | 異なるフレームワーク間でAgent通信プロトコルが統一されていない | A2Aプロトコル対応 / AgentCore等の統一基盤採用 |
 
@@ -72,9 +72,9 @@ title: "相性問題の発生箇所：5層モデルによる整理"
 | 問題 | 責任の所在 | 解決パターン |
 |------|------------|--------------|
 | #4 ライブラリ版ズレ | 第3層（ライブラリ）が第1層の最新仕様に追従していない | APIを直接叩いて検証→ライブラリにパッチ or 乗り換え |
-| #6 MCPスキーマ不正 | 第4層（MCPサーバー）が第2層Aに渡すJSONスキーマが不正 | MCP公式SDKでスキーマ生成 / バリデーション強化 |
-| #9 RAG混同 | 第3層（ホスト）が第2層Aに注入するか、第2層Bのtool_resultで返すかの選択 | 設計時に「検索の主体は誰か」を明確化 |
-| #10 Subagent権限 | 第3層（ホスト）がSubagentに渡す第2層Aのtools[]を適切に制限していない | `disallowedTools`の明示設定 |
+| #6 MCPスキーマ不正 | 第4層（MCPサーバー）が第2層INに渡すJSONスキーマが不正 | MCP公式SDKでスキーマ生成 / バリデーション強化 |
+| #9 RAG混同 | 第3層（ホスト）が第2層INに注入するか、第2層OUTのtool_resultで返すかの選択 | 設計時に「検索の主体は誰か」を明確化 |
+| #10 Subagent権限 | 第3層（ホスト）がSubagentに渡す第2層INのtools[]を適切に制限していない | `disallowedTools`の明示設定 |
 
 **対策の共通原則**: 層間のインターフェースを明文化し、境界責任を設計ドキュメントに記載。
 
@@ -82,21 +82,21 @@ title: "相性問題の発生箇所：5層モデルによる整理"
 
 ### 第3層（LLMオーケストレーション層）の問題（#5）
 
-**本質**: プログラムが「必ず実行する」を保証する層。第2層A（プロンプト）より上位であることの理解不足。
+**本質**: プログラムが「必ず実行する」を保証する層。第2層IN（プロンプト）より上位であることの理解不足。
 
 ```
-優先度: 第3層 Hooks (PreToolUse) > 第2層A CLAUDE.md > LLMの判断
+優先度: 第3層 Hooks (PreToolUse) > 第2層IN CLAUDE.md > LLMの判断
 ```
 
 | 問題 | 誤解 | 正しい理解 |
 |------|------|------------|
-| #5 Hook < Permission認識 | 「CLAUDE.mdに書いたから安全」 | PreToolUseは第3層でありCLAUDE.md（第2層A）より優先度が高い。exit 2で確実にブロック可能 |
+| #5 Hook < Permission認識 | 「CLAUDE.mdに書いたから安全」 | PreToolUseは第3層でありCLAUDE.md（第2層IN）より優先度が高い。exit 2で確実にブロック可能 |
 
 **対策**: Hooksの設計意図（決定論的制御）を理解し、セキュリティ要件はHooksで担保。
 
 ---
 
-### 第2層A（プロンプト）の問題（#7, #8）
+### 第2層IN（プロンプト）の問題（#7, #8）
 
 **本質**: 「言葉」で動作を制御する層。確率的であり、長すぎると優先度が不明確になる。
 

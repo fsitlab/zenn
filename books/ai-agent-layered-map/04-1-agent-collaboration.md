@@ -142,7 +142,7 @@ sequenceDiagram
 
     Note over Parent: 「複数のサブエージェント<br/>に分担して委譲」
 
-    Parent-->>App: tool_use: Task1（第2層B）
+    Parent-->>App: tool_use: Task1（第2層OUT）
     App->>Sub1: サブエージェント1起動
 
     rect rgb(240, 248, 255)
@@ -151,9 +151,9 @@ sequenceDiagram
     end
 
     Sub1-->>App: 実行結果1
-    App->>Parent: tool_result（第2層A）
+    App->>Parent: tool_result（第2層IN）
 
-    Parent-->>App: tool_use: Task2（第2層B）
+    Parent-->>App: tool_use: Task2（第2層OUT）
     App->>Sub2: サブエージェント2起動
 
     rect rgb(255, 248, 240)
@@ -162,7 +162,7 @@ sequenceDiagram
     end
 
     Sub2-->>App: 実行結果2
-    App->>Parent: tool_result（第2層A）
+    App->>Parent: tool_result（第2層IN）
 
     Parent->>Parent: 結果統合
     Parent-->>User: 最終回答
@@ -442,8 +442,8 @@ Agent Cardの情報がどのようにLLMに伝わるかを示します。
 sequenceDiagram
     participant AC as Agent Card<br/>（/.well-known/agent.json）
     participant MCP as 第3層<br/>MCPクライアント
-    participant Tools as 第2層B<br/>tools[]配列
-    participant Layer2A as 第2層A<br/>応答解析
+    participant Tools as 第2層OUT<br/>tools[]配列
+    participant Layer2A as 第2層IN<br/>応答解析
     participant LLM as 第1層<br/>LLM
 
     Note over AC,LLM: Agent Card情報の伝達経路
@@ -519,8 +519,8 @@ flowchart TB
     end
 
     subgraph Layer2["第2層 通信層"]
-        Layer2B["第2層B: ツール実行要求"]
-        Layer2A["第2層A: 応答解析"]
+        Layer2B["第2層OUT: ツール実行要求"]
+        Layer2A["第2層IN: 応答解析"]
     end
 
     subgraph Layer1["第1層 LLM層"]
@@ -557,11 +557,11 @@ flowchart TB
 flowchart LR
     subgraph SubAgentPath["サブエージェント経路"]
         direction TB
-        L1_SA["第1層: LLM"] --> L2B_SA["第2層B: tool_use: Task"]
+        L1_SA["第1層: LLM"] --> L2B_SA["第2層OUT: tool_use: Task"]
         L2B_SA --> L3_SA["第3層: LLMオーケストレーション層"]
         L3_SA --> L4_SA["第4層: サブエージェント"]
         L4_SA --> L3_SA2["第3層: LLMオーケストレーション層"]
-        L3_SA2 --> L2A_SA["第2層A: tool_result"]
+        L3_SA2 --> L2A_SA["第2層IN: tool_result"]
         L2A_SA --> L1_SA2["第1層: LLM"]
     end
 
@@ -574,11 +574,11 @@ flowchart LR
 
     subgraph A2APath["A2A経路"]
         direction TB
-        L1_A2A["第1層: LLM"] --> L2B_A2A["第2層B: tool_use"]
+        L1_A2A["第1層: LLM"] --> L2B_A2A["第2層OUT: tool_use"]
         L2B_A2A --> L3_A2A["第3層: MCPクライアント"]
         L3_A2A --> L4_A2A["第4層: A2Aエージェント<br/>（HTTP/JSON-RPC）"]
         L4_A2A --> L3_A2A2["第3層: MCPクライアント"]
-        L3_A2A2 --> L2A_A2A["第2層A: tool_result"]
+        L3_A2A2 --> L2A_A2A["第2層IN: tool_result"]
         L2A_A2A --> L1_A2A2["第1層: LLM"]
     end
 
@@ -594,8 +594,8 @@ flowchart LR
 | **第5層（UI・運用層）** | ユーザー入力 | ユーザー入力・割り込み | ユーザー入力 |
 | **第4層** | サブエージェント実行 | タスクボード・テイメイト | A2Aエージェント（リモート） |
 | **第3層（LLMオーケストレーション層）** | 起動・管理 | リード・タスク管理 | MCPクライアント・JSON-RPC |
-| **第2層B** | tool_use: Task | - | tool_use（Agent呼出） |
-| **第2層A** | tool_result | - | tool_result |
+| **第2層OUT** | tool_use: Task | - | tool_use（Agent呼出） |
+| **第2層IN** | tool_result | - | tool_result |
 | **第1層** | 判断・統合 | - | 判断・統合 |
 
 ---

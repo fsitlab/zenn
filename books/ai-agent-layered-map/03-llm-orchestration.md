@@ -129,7 +129,7 @@ GUIでワークフローを構築し、LLMアプリケーションを開発す�
 | **GitHub Copilot** | GitHub/Microsoft | IDE統合、コード補完特化 |
 | **OpenAI Codex** | OpenAI | CLI、AGENTS.md対応 |
 
-**層の位置づけ**: 第5層（ターミナルUI）+ 第3層（LLMオーケストレーション層：Hooks、Permissions、MCPクライアント）+ 第2層A（CLAUDE.md、Skill）を統合。
+**層の位置づけ**: 第5層（ターミナルUI）+ 第3層（LLMオーケストレーション層：Hooks、Permissions、MCPクライアント）+ 第2層IN（CLAUDE.md、Skill）を統合。
 
 - 📘 [Claude Code ドキュメント](https://code.claude.com/docs/en/)
 - 📘 [Cursor ドキュメント](https://docs.cursor.com/)
@@ -176,7 +176,7 @@ LLMを活用した検索サービス。内部でRAG的な処理を行い、検�
 
 ## 従来型RAGの位置づけ
 
-**一言**: 従来型RAGは第3層（LLMオーケストレーション層）が第4層（ベクトルDB）を使い、結果を第2層A（プロンプト注入）に渡す構造。LLMは検索の存在を知らない。
+**一言**: 従来型RAGは第3層（LLMオーケストレーション層）が第4層（ベクトルDB）を使い、結果を第2層IN（プロンプト注入）に渡す構造。LLMは検索の存在を知らない。
 
 ```
 従来型RAG の処理フロー:
@@ -187,7 +187,7 @@ LLMを活用した検索サービス。内部でRAG的な処理を行い、検�
     ↓ Embedding Modelでベクトル化
     ↓ ベクトルDBでANN検索
     ↓ 上位k件のテキストを取得
-[第2層A: プロンプト注入]
+[第2層IN: プロンプト注入]
     ↓ 検索結果をsystem promptに挿入
 [第1層: LLMへ送信]
     ↓ LLMは「文書が来た理由」を知らない
@@ -240,16 +240,16 @@ LLMを活用した検索サービス。内部でRAG的な処理を行い、検�
 
 ## CLAUDE.md、Skill、Hooksの位置づけ
 
-**一言**: CLAUDE.md/Skillは第2層A（プロンプト注入）、Hooksは第3層（決定論的制御）。LLMオーケストレーション層（第3層）はこれらを読み込み・実行する責任を持つ。
+**一言**: CLAUDE.md/Skillは第2層IN（プロンプト注入）、Hooksは第3層（決定論的制御）。LLMオーケストレーション層（第3層）はこれらを読み込み・実行する責任を持つ。
 
 ```
 第3層（LLMオーケストレーション層: Claude Code等）
-  ├── 読み込み: CLAUDE.md（第2層A）→ system promptに注入
-  ├── 読み込み: Skill（第2層A）→ 必要時にロード
+  ├── 読み込み: CLAUDE.md（第2層IN）→ system promptに注入
+  ├── 読み込み: Skill（第2層IN）→ 必要時にロード
   └── 実行: Hooks（第3層）→ PreToolUse等のイベントでシェルスクリプト実行
 ```
 
-### CLAUDE.md / AGENTS.md（第2層A）
+### CLAUDE.md / AGENTS.md（第2層IN）
 
 セッション開始時にsystem promptへ自動注入されるMarkdown。
 
@@ -263,7 +263,7 @@ LLMを活用した検索サービス。内部でRAG的な処理を行い、検�
 - 📘 [Claude Code Memory管理](https://code.claude.com/docs/en/memory)
 - 📘 [AGENTS.md 標準](https://agents.md/)
 
-### Skill（第2層A）
+### Skill（第2層IN）
 
 使用時だけロードされるプロンプトのモジュール。起動時は`name`と`description`だけ読み、タスクが来たとき初めて全体をロード（Progressive Disclosure）。
 
