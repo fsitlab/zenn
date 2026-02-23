@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc:*)",
+      "Bash(ren:*)",
+      "WebSearch",
+      "WebFetch(domain:digital-gov.note.jp)",
+      "Bash(ls:*)",
+      "Bash(dir \"C:\\\\Users\\\\takan\\\\documents\\\\アウトプット\\\\Qiita\\\\AIエージェント知識マップ\\\\output\"\" | findstr \"07_ \")",
+      "WebFetch(domain:genai.owasp.org)",
+      "WebFetch(domain:www.paloaltonetworks.com)",
+      "WebFetch(domain:www.startupdefense.io)",
+      "WebFetch(domain:www.humansecurity.com)"
+    ]
+  }
+}
